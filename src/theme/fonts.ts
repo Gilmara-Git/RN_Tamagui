@@ -2,7 +2,7 @@ import { createFont } from 'tamagui';
 
 export const fonts =  createFont({
       
-    family: 'Montserrat_400Regular, ' , 
+    family: 'Montserrat_400Regular' , 
     size:{
         1:12,
         2:14,
@@ -10,7 +10,7 @@ export const fonts =  createFont({
         4:18,
         5:20,
         6:22,
-        true:16
+        true: 16
 
     }, 
     face:{

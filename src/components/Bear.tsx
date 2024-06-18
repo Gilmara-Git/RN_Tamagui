@@ -16,10 +16,10 @@ export const Bear = ()=>{
                     <YStack jc='center' gap='$1' bg='$red9' borderRadius={8} p={6}>
                     
                         <Paragraph 
-                            color='$white7'
+                            color='$gray3'
                             fontSize={'$3'}
                             fontFamily={'$body'}
-                            fontWeight='bold'
+                            fontWeight={'700'}
                             textAlign='center'
                             paddingTop={25}
                         
@@ -31,10 +31,10 @@ export const Bear = ()=>{
                         <Separator marginVertical={5}/>
 
                         <Paragraph
-                        color='$white7'
+                        color='$gray3'
                         fontSize={'$3'}
                         fontFamily={'$body'}
-                        fontWeight='bold'
+                        // fontWeight={'600'}
                         textAlign='center'
                         >
                         My creator, Gilmara Pimentel is keeping up with new TECHNOLOGIES.
