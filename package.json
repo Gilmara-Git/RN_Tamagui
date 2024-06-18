@@ -19,7 +19,8 @@
     "react-native": "0.74.2",
     "react-native-iphone-screen-helper": "^2.1.1",
     "react-native-svg": "15.2.0",
-    "tamagui": "^1.100.4"
+    "tamagui": "^1.100.4",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
