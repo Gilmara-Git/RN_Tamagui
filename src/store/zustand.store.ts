@@ -1,17 +1,31 @@
 import {  create } from 'zustand';
 
-type CountBears = {
-    countBears: number;
-    addBear: () => void,
-    removeBear: () => void, 
-}
+export type BearType ={
+        id: string;    
+        description: string,
+        signature:string,
+        imageUrl: string
+        };
+        
+        
+        type Bears = {
+            bearsSelection: Array<BearType>;
+            addBear: (bear: BearType) => void,
+            removeBear: (id: string) => void, 
+        }
 
-export const useCountBearsStore = create<CountBears>((set)=>({
-    countBears: 0,
-    addBear: ()=> {
-        set((state)=>({ countBears: state.countBears + 1}));
-    },
-    removeBear: () =>{
-        set((state)=> ({ countBears: state.countBears > 0 ? state.countBears - 1 : 0 }))
-    }
-}))
+    export const useBearStore = create<Bears>((set)=>({
+        bearsSelection : [],
+        addBear: (bear) => {
+            set((state)=>( { ...state, bearsSelection: state.bearsSelection.concat(bear)}));
+        },
+        removeBear: (id) => {
+        
+            set((state)=>( 
+               
+                {   ...state,
+                    bearsSelection:state.bearsSelection.filter(bear =>bear.id !== id)}))
+            
+        }
+    }));
+

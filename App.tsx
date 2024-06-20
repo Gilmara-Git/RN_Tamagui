@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FlatList } from 'react-native';
 import { StatusBar, Platform, Dimensions } from "react-native";
 import { getStatusBarHeight } from "react-native-iphone-screen-helper";
 import { useFonts, Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold } from "@expo-google-fonts/montserrat";
@@ -11,14 +12,16 @@ import { Bear } from "./src/components/Bear";
 import { ChangeTheme } from "./src/components/ChangeTheme";
 import { ButtonsGroup } from "./src/components/ButtonsGroup";
 
-import { useCountBearsStore } from './src/store/zustand.store';
+import { useBearStore } from './src/store/zustand.store';
+import { randomBears, fetchBears  }  from './src/services/bearApi';
  
 export default function App() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
  
-  const count =  useCountBearsStore((state)=> state.countBears);
-  const incrementBears =   useCountBearsStore((state)=> state.addBear)
-  const decrementBears =   useCountBearsStore((state)=> state.removeBear)
+  const bearsList =  useBearStore((state)=>state.bearsSelection);
+  const addBear = useBearStore((state)=>state.addBear);
+  const removeBear = useBearStore((state)=>state.removeBear);
+  
 
   // const fontsLoaded = useFonts({
   //   Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
@@ -42,13 +45,56 @@ export default function App() {
 
   const windowWidth = Dimensions.get("window").width;
 
-  const handleBearUpdate = (action: string) => {
-    action === 'add' ? incrementBears() : decrementBears();
+  const handleBearUpdate = async (action: string) => {
+
+    try{
+  
+    if(action === 'add'){
+      
+      if(bearsList.length === 0){
+        addBear(randomBears[0]);
+       
+      };
+
+      if(bearsList.length > 0){
+    
+        // mocking api call
+        await new Promise((resolve)=> setTimeout(resolve, 500));
+
+        const response =  fetchBears();
+
+        const bearExist = bearsList.find(bear =>bear.id === response.id);
+        console.log(bearExist === undefined, 'bear Exist')
+
+
+        if(bearExist === undefined){
+          addBear(response);
+        }
+      }
+
+
+    };
+
+    if(action === 'remove'){
+      const randomIndex =  Math.ceil(Math.random() * bearsList.length);
+      const id = bearsList.length === 1 ? bearsList[0].id : bearsList[randomIndex -1 ].id;
+      console.log(id)
+      removeBear(id);
+
+    }
+
+  }catch(e){
+    console.log(e)
+  }
+
   };
+
+
+  console.log(bearsList, 'quereo saber to bearsList')
 
   return (
     <TamaguiProvider config={tamaguiConfig}>
-      <Theme name={isDarkTheme ? "dark" : "light"}>
+      <Theme name={isDarkTheme ? "dark" : "light"}>     
         <StatusBar
           barStyle={isDarkTheme ? "light-content" : "dark-content"}
           backgroundColor="transparent"
@@ -62,7 +108,7 @@ export default function App() {
         >
           <YStack
             ai="center"
-            w={Platform.OS === "ios" ? windowWidth - 170 : windowWidth - 150}
+            w={Platform.OS === "ios" ? windowWidth - 170 : windowWidth - 130}
             jc="center"
           >
             <XStack>
@@ -71,9 +117,24 @@ export default function App() {
 
             <ButtonsGroup updateBear={handleBearUpdate} />
 
-            <Bear />
+            <FlatList 
+              data={bearsList}
+              keyExtractor={(item)=> item.id}
+              renderItem={({item})=> <Bear data={item}/>}
+              contentContainerStyle={{ paddingBottom: 200}} 
+              showsVerticalScrollIndicator={false}
+              ListEmptyComponent={()=> 
+              <XStack ai='center' jc='center' mt={50}>
+                <Text fontFamily='$body' fontSize={16}>
+                  Start adding Bear Components!!
+                  </Text>
+                  
+                </XStack>
+                }
+             
+              />
 
-            <Text>{count}</Text>
+      
           </YStack>
         </YStack>
       </Theme>
