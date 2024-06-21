@@ -6,16 +6,26 @@ export type BearType ={
         signature:string,
         imageUrl: string
         };
-        
+
+         
         
         type Bears = {
             bearsSelection: Array<BearType>;
+        }
+        
+        const initialState : Bears = {
+            bearsSelection: []
+        }
+        
+        type Actions  = {
             addBear: (bear: BearType) => void,
             removeBear: (id: string) => void, 
+
         }
 
-    export const useBearStore = create<Bears>((set)=>({
-        bearsSelection : [],
+
+    export const useBearStore = create<Bears & Actions>((set)=>({
+        ...initialState,
         addBear: (bear) => {
             set((state)=>( { ...state, bearsSelection: state.bearsSelection.concat(bear)}));
         },
