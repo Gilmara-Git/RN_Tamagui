@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FlatList } from "react-native";
+import { Alert, FlatList } from "react-native";
+
 import { StatusBar, Platform, Dimensions } from "react-native";
 import { getStatusBarHeight } from "react-native-iphone-screen-helper";
 import {
@@ -10,7 +11,13 @@ import {
 } from "@expo-google-fonts/montserrat";
 // import { useFonts } from "expo-font";
 
-import { TamaguiProvider, YStack, XStack, Theme, Text, } from "tamagui";
+import {
+  TamaguiProvider,
+  YStack,
+  XStack,
+  Theme,
+  Text,
+} from "tamagui";
 import tamaguiConfig from "./tamagui.config";
 
 import { Bear } from "./src/components/Bear";
@@ -63,21 +70,31 @@ export default function App() {
           const response = fetchBears();
 
           const bearExist = bearsList.find((bear) => bear.id === response.id);
-          console.log(bearExist === undefined, "bear Exist");
+    
 
           if (bearExist === undefined) {
             addBear(response);
+          } else {
+            Alert.alert("Bear not added", "Try again, you add up to 8 bears!");
           }
+        }
+
+        if (bearsList.length === 8) {
+          return Alert.alert("No more bears allowed", "Start removing them!");
         }
       }
 
       if (action === "remove") {
+        if (bearsList.length === 0) {
+          return Alert.alert("There is no bear to remove", "Add a bear first");
+        }
+
         const randomIndex = Math.ceil(Math.random() * bearsList.length);
         const id =
           bearsList.length === 1
             ? bearsList[0].id
             : bearsList[randomIndex - 1].id;
-        console.log(id);
+
         removeBear(id);
       }
     } catch (e) {
