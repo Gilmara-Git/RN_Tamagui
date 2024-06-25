@@ -1,13 +1,21 @@
-import { XStack, Avatar, YStack, Separator, Paragraph } from "tamagui";
+import { XStack, Avatar, YStack, Separator, Paragraph, styled } from "tamagui";
+import { TouchableOpacity, TouchableOpacityProps} from 'react-native';
 import { BearType } from "../store/zustand.store";
 
-type TBear = {
+type TBear = TouchableOpacityProps &{
   data: BearType;
 };
 
-export const Bear = ({ data }: TBear): JSX.Element => {
+
+export const Bear = ({ data, ...rest }: TBear): JSX.Element => {
   return (
-    <YStack ai="center" jc="center" mt={20}>
+    <TouchableOpacity 
+    activeOpacity={0.7}
+    {...rest}
+    >
+
+   
+    <YStack ai="center" jc="center" mt={20} p={2}>
       <Avatar circular size="$6" zIndex={1}>
         <Avatar.Image accessibilityLabel="Nate Wienert" src={data.imageUrl} />
         <Avatar.Fallback delayMs={600} backgroundColor="$gray8" />
@@ -38,5 +46,6 @@ export const Bear = ({ data }: TBear): JSX.Element => {
         </YStack>
       </XStack>
     </YStack>
+    </TouchableOpacity>
   );
 };
