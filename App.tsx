@@ -17,7 +17,6 @@ import { useThemeStore } from "./src/store/themeZustandStore";
 
 export default function App() {
   const darkTheme = useThemeStore((state) => state.isDarkTheme);
-
   // const fontsLoaded = useFonts({
   //   Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
   //   InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
