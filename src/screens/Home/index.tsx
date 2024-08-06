@@ -87,7 +87,7 @@ export const Home = () => {
           ai="center"
           jc="center"
         >
-          <ChangeTheme onCheckedChange={updateTheme} />
+          <ChangeTheme themeUpdate={updateTheme} />
         </XStack>
 
         <ButtonsGroup updateBear={handleBearUpdate} />
