@@ -20,7 +20,7 @@ export const Bear = ({ data, ...rest }: TBear): JSX.Element => {
               color="$gray3"
               fontSize={"$3"}
               fontFamily={"$body"}
-              // fontWeight={'700'}
+              fontWeight={'700'}
               textAlign="center"
               paddingTop={25}
             >
@@ -31,8 +31,8 @@ export const Bear = ({ data, ...rest }: TBear): JSX.Element => {
             <Paragraph
               color="$gray3"
               fontSize={"$3"}
-              fontFamily={"$heading"}
-              // fontWeight={'400'}
+              fontFamily={"$body"}
+              fontWeight={'400'}
               textAlign="center"
             >
               {data.signature}
