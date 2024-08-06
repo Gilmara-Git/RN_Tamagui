@@ -1,21 +1,28 @@
-import { config } from '@tamagui/config/v3';
+import { config as defaultConfig } from '@tamagui/config/v2-native';
 import { createTamagui } from 'tamagui';
 import {  fonts } from './src/theme/fonts';
 import { tokens } from './src/theme/tokens';
 
 
-const tamaguiConfig = createTamagui({
-    ...config,
+const config = createTamagui({
+    ...defaultConfig,
+
     fonts:{
         body: fonts,
-        heading: fonts
+        heading: fonts,
+        normalFont: {
+            family: fonts.family,
+            size: fonts.size
+        }
+
     },
     tokens,
 });
-export type Config = typeof tamaguiConfig;
+type Config = typeof config;
 
 declare module 'tamagui' {
     interface TamaguiCustomConfig extends Config {} 
+   
 };
 
-export default tamaguiConfig;
+export default config;
