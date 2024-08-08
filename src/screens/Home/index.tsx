@@ -102,7 +102,7 @@ export const Home = () => {
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={() => (
             <XStack ai="center" jc="center" mt={50}>
-              <Text fontFamily="$body" fontSize={16}>
+              <Text fontFamily="$body" fontSize={16} fontWeight={400}>
                 Start adding Bear Components!!
               </Text>
             </XStack>
